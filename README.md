@@ -20,12 +20,12 @@ Develop a full-stack AI reporting web app using Azure OpenAI, enabling automated
 DataScribe/
 │
 │
-├── client/                            # React frontend
+├── frontend/                           # React frontend
 │   ├── conmponents/          
 │   ├── pages/                 
 │   └── ...
 │
-├── server/                            # API backend
+├── backend/                            # API backend
 │   ├── routes/                       
 │   ├── services/                       
 │   └── ...
