@@ -1,0 +1,13 @@
+###
+
+
+GET http://localhost:8000/fruits
+
+
+###
+POST http://localhost:8000/fruits
+content-type: application/json
+
+{
+    "name": "Pear"
+}
