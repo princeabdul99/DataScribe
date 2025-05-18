@@ -1,13 +1,9 @@
-###
 
 
-GET http://localhost:8000/fruits
-
-
-###
-POST http://localhost:8000/fruits
+### generate prompt
+POST http://localhost:8000/generate
 content-type: application/json
 
 {
-    "name": "Pear"
+    "prompt": "What is the limit of this model?"
 }
