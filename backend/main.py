@@ -1,10 +1,11 @@
 import uvicorn
-import requests
-import os
-from fastapi import FastAPI
+import os, requests
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from docx import Document
+import csv
 
 
 
@@ -16,7 +17,7 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 app = FastAPI() 
 
 origins = [
-    "http://localhost:3000"
+    "http://localhost:5173"
 ]
 
 app.add_middleware(
@@ -31,9 +32,46 @@ app.add_middleware(
 class PromptRequest(BaseModel):
     prompt: str
 
+def extract_text(file: UploadFile) -> str:
+    # txt file upload
+    if file.filename.endswith(".txt"):
+        file.file.seek(0)
+        return file.file.read().decode("utf-8")
+    #docx file upload
+    elif file.filename.endswith(".docx"):
+        file.file.seek(0)
+        doc = Document(file.file)
+        return "\n".join(p.text for p in doc.paragraphs)
+    #csv file upload
+    elif file.filename.endswith(".csv"):
+        file.file.seek(0)
+        lines = file.file.read().decode("utf-8").splitlines()
+        return "\n".join(lines)
+    
+    else:
+        return "Unsupported file type."
+
+
 
 @app.post("/generate")
-async def generate_text(request: PromptRequest):
+async def generate_text(
+    file: UploadFile = File(...),
+    report_type: str = Form(...),
+    instructions: str = Form("")
+    ):
+
+    file_content = extract_text(file)
+    
+    if file_content == "Unsupported file type.":
+        return JSONResponse(status_code=400, content={"error": "Unsupported file type."})
+
+    prompt = (
+        f"You are a business analyst AI. The user uploaded the following data file. "
+        f"Generate a '{report_type.replace('_', ' ')}' based on it.\n\n"
+        f"User Instructions: {instructions}\n\n"
+        f"Data Content:\n{file_content[:2000]}"
+    )
+
 
     headers = {
          "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -44,7 +82,7 @@ async def generate_text(request: PromptRequest):
          "model":"mistralai/mistral-7b-instruct",
            "messages" : [
                 {"role": "system", "content": "You are a helpful report assistant."},
-                {"role": "user", "content": request.prompt}
+                {"role": "user", "content": prompt}
            ]
     }
 
