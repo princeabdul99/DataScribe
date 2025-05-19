@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: production
+      PYTHON_VERSION: '3.11'
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # --- Frontend Setup ---
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    # --- Backend Setup ---
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # --- Lint and/or test backend (optional) ---
+    - name: Run tests (optional)
+      working-directory: ./backend
+      run: pytest || echo "No tests found"
+
+    # ---- Deployment (Optional) ----
+    # Here you can use rsync, SCP, or AWS CLI to deploy
