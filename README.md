@@ -29,7 +29,11 @@ DataScribe/
 │   ├── routes/                       
 │   ├── services/                       
 │   └── ...
-│
+|
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml                  # GitHub Actions config
+|
 ├── prompts/                            # Sample prompts/templates
 ├── .env                                # Environment variables
 │
