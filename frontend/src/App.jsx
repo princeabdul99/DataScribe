@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import axios from 'axios';
+import GeneratedReport from '../components/report';
 
 function App() {
   const [file, setFile] = useState(null);
@@ -117,54 +118,55 @@ return (
           </button>
         </div>
         </form>
+        {response && (
+          <div>
+            <div className="border-b border-gray-300"></div>
 
-        <div className="border-b border-gray-300"></div>
+            {/* Preview */}
+            <div className="mt-6">
+              <h4 className="text-center text-lg font-semibold text-gray-700 mb-4">
+                AI-Generate Report Preview
+              </h4>
 
-        {/* Preview */}
-        <div className="mt-6">
-          <h4 className="text-center text-lg font-semibold text-gray-700 mb-4">
-            AI-Generate Report Preview
-          </h4>
+              {response && (
+                <div className="space-y-4 text-gray-700 text-sm">
+                {/* <p><strong>Report Title:</strong></p> */}
 
-          {response && (
-            <div className="space-y-4 text-gray-700 text-sm">
-            <p><strong>Report Title:</strong></p>
+                <div>
+                  <GeneratedReport responseData={response} />
+                  
+                </div>
 
-            <div>
-              <strong>Response Summary:</strong>
-              <p>
-                {response}
-              </p>
+                {/* <div>
+                  <strong>Insights:</strong>
+                  <p>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                    sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                  </p>
+                </div>
+
+                <div>
+                  <strong>Conclusion:</strong>
+                  <p>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+                    sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+                  </p>
+                </div> */}
+              </div>
+              )}
             </div>
 
-            {/* <div>
-              <strong>Insights:</strong>
-              <p>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-              </p>
+            {/* Action Buttons */}
+            <div className="flex justify-center gap-4 pt-4">
+              <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleDownload} disabled >
+                <i className="fas fa-file-pdf"></i> Download PDF
+              </button>
+              <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleCopy} disabled>
+                <i className="fas fa-copy"></i> Copy to Clipboard
+              </button>
             </div>
-
-            <div>
-              <strong>Conclusion:</strong>
-              <p>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
-                sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-              </p>
-            </div> */}
-          </div>
-          )}
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex justify-center gap-4 pt-4">
-          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleDownload} disabled >
-            <i className="fas fa-file-pdf"></i> Download PDF
-          </button>
-          <button className="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-md flex items-center gap-2" onClick={handleCopy} disabled>
-            <i className="fas fa-copy"></i> Copy to Clipboard
-          </button>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -19,6 +19,9 @@ Develop a full-stack AI reporting web app using Azure OpenAI, enabling automated
 ```
 DataScribe/
 │
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml                  # GitHub Actions config
 │
 ├── frontend/                           # React frontend
 │   ├── conmponents/          
@@ -32,9 +35,6 @@ DataScribe/
 |   ├── test.http                       
 │   └── ...
 |
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml                  # GitHub Actions config
 |
 ├── documentations/                    # Project Documentation files
 ├── .env                               # Environment variables
