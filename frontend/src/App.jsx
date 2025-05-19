@@ -5,7 +5,7 @@ import GeneratedReport from '../components/report';
 
 function App() {
   const [file, setFile] = useState(null);
-  const [reportType, setReportType] = useState("");
+  const [reportType, setReportType] = useState("summary");
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ function App() {
     setLoading(false);
     setPrompt("");
     setFile(null);
-    setReportType("")
+    setReportType("summary")
     // if (fileInputRef.current) {
     //   fileInputRef.current.value = null; // visually reset file input
     // }
@@ -95,7 +95,7 @@ return (
             onChange={(e) => setReportType(e.target.value)}
             className="border border-gray-300 rounded-md px-4 py-2 text-sm"
           >
-            <option value="">Select Report Type</option>
+            {/* <option value="">Select Report Type</option> */}
             {reportOptions.map(opt => (
             <option key={opt.value} value={opt.value}>{opt.label}</option>
           ))}
