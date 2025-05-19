@@ -2,7 +2,7 @@
 
 ## 📚  Project Title: DataScribe
 
-A web-based dashboard that lets users input raw data (or upload CSV), choose a report type (summary, insights, bullet points), and uses Azure OpenAI to generate a professional report.
+A web-based dashboard that lets users input raw data (or upload CSV), choose a report type (summary, insights, recommendation), and uses OpenRouterAI to generate a professional report.
 
 ### Objectives
 Develop a full-stack AI reporting web app using Azure OpenAI, enabling automated business report generation from raw data via secure cloud architecture and prompt engineering.
@@ -10,7 +10,7 @@ Develop a full-stack AI reporting web app using Azure OpenAI, enabling automated
 ### 🧠 Core Features
 - Upload / Paste Raw Text or CSV.
 - Select Report Type.
-- Azure OpenAI Integration.
+- OpenRouterAI Integration.
 - View & Copy Output.
 - Save history (optional).
 
@@ -26,18 +26,21 @@ DataScribe/
 │   └── ...
 │
 ├── backend/                            # API backend
-│   ├── routes/                       
-│   ├── services/                       
+│   ├── venv/                       
+│   ├── main.py
+|   ├── requirements.txt
+|   ├── test.http                       
 │   └── ...
 |
 ├── .github/
 │   └── workflows/
 │       └── ci-cd.yml                  # GitHub Actions config
 |
-├── prompts/                            # Sample prompts/templates
-├── .env                                # Environment variables
+├── documentations/                    # Project Documentation files
+├── .env                               # Environment variables
+├── .gitignore                         # Gitignore file path
 │
-└── README.md                           # Project overview and instructions
+└── README.md                          # Project overview and instructions
 
 ```
 ---	
