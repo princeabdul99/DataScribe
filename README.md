@@ -5,7 +5,7 @@
 A web-based dashboard that lets users input raw data (or upload CSV), choose a report type (summary, insights, recommendation), and uses OpenRouterAI to generate a professional report.
 
 ### Objectives
-Develop a full-stack AI reporting web app using Azure OpenAI, enabling automated business report generation from raw data via secure cloud architecture and prompt engineering.
+Develop a full-stack AI reporting web app using OpenRouterAI, enabling automated business report generation from raw data via secure cloud architecture and prompt engineering.
 
 ### 🧠 Core Features
 - Upload / Paste Raw Text or CSV.
